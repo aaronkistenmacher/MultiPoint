@@ -66,14 +66,16 @@ function main() {
   gl.clearColor(0.0, 0.0, 0.0, 1.0);
   gl.clear(gl.COLOR_BUFFER_BIT);
 
-  gl.drawArrays(gl.TRIANGLES, 0, n);
+  gl.drawArrays(gl.TRIANGLE_STRIP, 0, n);
 }
 
 function initVertexBuffers(gl) {
-  var vertices = new Float32Array([  0.0,  0.5,
+  var vertices = new Float32Array([ -0.5,  0.5,
                                     -0.5, -0.5,
+                                     0.5,  0.5,
                                      0.5, -0.5 ]);
-  var n = 3;
+  // var n = 4;
+  var n = vertices.length/2;
 
   var vertexBuffer = gl.createBuffer();
   if (!vertexBuffer) {

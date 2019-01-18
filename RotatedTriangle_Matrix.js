@@ -47,7 +47,7 @@ function loadShader(gl, type, source) {
   return shader;
 }
 
-const angle = 90.0;
+const angle = 120.0;
 
 function main() {
   const canvas = document.getElementById('webgl');
@@ -69,20 +69,24 @@ function main() {
     return;
   }
 
+  // WebGL is column major
+  /*
   const radian = Math.PI * angle / 180.0;
   const cosB = Math.cos(radian);
   const sinB = Math.sin(radian);
 
-  // WebGL is column major
   const xformMatrix = new Float32Array([
      cosB,  sinB,   0.0,   0.0,
     -sinB,  cosB,   0.0,   0.0,
       0.0,   0.0,   1.0,   0.0,
       0.0,   0.0,   0.0,   1.0
   ]);
+  */
+  const xformMatrix = new Matrix4();
+  xformMatrix.setRotate(angle, 0, 0, 1);
 
   const uXformMatrix = gl.getUniformLocation(gl.program, 'uXformMatrix');
-  gl.uniformMatrix4fv(uXformMatrix, false, xformMatrix);
+  gl.uniformMatrix4fv(uXformMatrix, false, xformMatrix.elements);
 
   gl.clearColor(0.0, 0.0, 0.0, 1.0);
   gl.clear(gl.COLOR_BUFFER_BIT);
